@@ -34,6 +34,7 @@ Nombre VARCHAR(20) NOT NULL,
 Apellido VARCHAR(20) NOT NULL,
 NumDocumento VARCHAR(200) NOT NULL,/*Va encriptado*/
 FechaExpedicion VARCHAR(200) NOT NULL,/*Va encriptado*/
+PlacaVehiculo VARCHAR(10) NOT NULL,
 Coordenadas VARCHAR(80) NOT NULL,
 IdRuta INT NOT NULL
 CONSTRAINT FK_Ruta FOREIGN KEY (IdRuta) REFERENCES Ruta (Id)
