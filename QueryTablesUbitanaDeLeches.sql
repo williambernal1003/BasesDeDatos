@@ -63,14 +63,28 @@ IdTipoPersona INT NOT NULL
 CREATE TABLE Reporte(
 Id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 FechaSolicitaReporte VARCHAR(15) NOT NULL,
-FechaIncidencia VARCHAR(15) NOT NULL,
 Observacion VARCHAR(400),
 Respuesta VARCHAR(400) NULL,
 IdProductor INT NOT NULL,
 IdProduccion INT NOT NULL, /*fORANEA haciendo referencia a el i9d de la emtrega produccion litros*/
 IdTransportador INT NOT NULL,
+EstadoReporte INT NOT NULL, /*1 Generado, 2 generado y solucionada, 3 generado revisado pero no solucionado*/
 CONSTRAINT FK_PRODUCTOR FOREIGN KEY (IdProductor) REFERENCES Productores(Id),
 CONSTRAINT FK_Produccion FOREIGN KEY (IdProduccion) REFERENCES ProduccionL (Id),
+CONSTRAINT FK_Transportador FOREIGN KEY (IdTransportador) REFERENCES Transportador (Id)
+);
+
+
+--Tabla de reportes que no tienen Produccion Asociada
+CREATE TABLE ReporteSinProd(
+Id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+FechaSolicitaReporte VARCHAR(15) NOT NULL,
+Observacion VARCHAR(400),
+Respuesta VARCHAR(400) NULL,
+IdProductor INT NOT NULL,
+IdTransportador INT NOT NULL,
+EstadoReporte INT NOT NULL, /*1 Generado, 2 generado y solucionada, 3 generado revisado pero no solucionado*/
+CONSTRAINT FK_PRODUCTOR FOREIGN KEY (IdProductor) REFERENCES Productores(Id),
 CONSTRAINT FK_Transportador FOREIGN KEY (IdTransportador) REFERENCES Transportador (Id)
 );
 
@@ -88,4 +102,3 @@ DELETE @Tale WHERE @Id = Id
 SET @Count = (SELECT COUNT(*) FROM @Tale);
 END
 */
-
