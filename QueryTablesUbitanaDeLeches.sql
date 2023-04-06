@@ -18,22 +18,24 @@ CREATE TABLE Productores(
 Id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 Nombre VARCHAR(20) NOT NULL,
 Apellido VARCHAR(20) NOT NULL,
-NumDocumento VARCHAR(200) NOT NULL,/*Va encriptado*/
-FechaExpedicion VARCHAR(200) NOT NULL,/*Va encriptado*/
+Usuario VARCHAR(200) NOT NULL,/*Va encriptado*/
+Pasword VARCHAR(200) NOT NULL,/*Va encriptado*/
 Coordenadas VARCHAR(80) NOT NULL,
 IdVereda INT NOT NULL,
 IdTipoProd INT NOT NULL,
 Orden INT,
+IdRuta INT NOT NULL,
 CONSTRAINT FK_Vereda FOREIGN KEY (IdVereda) REFERENCES Vereda (Id),
-CONSTRAINT FK_TipoProd FOREIGN KEY (IdTipoProd) REFERENCES TipoProductor (Id)
+CONSTRAINT FK_TipoProd FOREIGN KEY (IdTipoProd) REFERENCES TipoProductor (Id),
+CONSTRAINT FK_Ruta FOREIGN KEY (IdRuta) REFERENCES Ruta (Id)
 );
 
 CREATE TABLE Transportador(
 Id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 Nombre VARCHAR(20) NOT NULL,
 Apellido VARCHAR(20) NOT NULL,
-NumDocumento VARCHAR(200) NOT NULL,/*Va encriptado*/
-FechaExpedicion VARCHAR(200) NOT NULL,/*Va encriptado*/
+Usuario VARCHAR(200) NOT NULL,/*Va encriptado*/
+Pasword VARCHAR(200) NOT NULL,/*Va encriptado*/
 PlacaVehiculo VARCHAR(10) NOT NULL,
 Coordenadas VARCHAR(80) NOT NULL,
 IdRuta INT NOT NULL
@@ -43,7 +45,7 @@ CONSTRAINT FK_Ruta FOREIGN KEY (IdRuta) REFERENCES Ruta (Id)
 CREATE TABLE ProduccionL(
 Id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 Cantidad INT,
-FechaEntrega VARCHAR(20) NOT NULL,/*DD/MM/AA*/
+FechaEntrega datetime NOT NULL,
 IdProductor INT NOT NULL,
 IdTrans INT NOT NULL,
 Estado INT NOT NULL, /*1 Pagado. 0 Sin pagar*/
@@ -57,7 +59,8 @@ Id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 Icono VARCHAR(20) NOT NULL,
 Descripcion VARCHAR(20) NOT NULL,
 PathMenu VARCHAR(300),
-IdTipoPersona INT NOT NULL
+IdTipoPersona INT NOT NULL,
+Orden INT
 );
 
 CREATE TABLE Reporte(
@@ -88,6 +91,16 @@ CONSTRAINT FK_PRODUCTOR FOREIGN KEY (IdProductor) REFERENCES Productores(Id),
 CONSTRAINT FK_Transportador FOREIGN KEY (IdTransportador) REFERENCES Transportador (Id)
 );
 
+CREATE TABLE UsuarioAdmin(
+IdUser INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+Nombre VARCHAR(20) NOT NULL,
+Apellido VARCHAR(20) NOT NULL,
+NumDocumento VARCHAR(200) NOT NULL,
+Usuario VARCHAR(200) NOT NULL,/*Va encriptado*/
+Pasword VARCHAR(200) NOT NULL,/*Va encriptado*/
+Coordenadas VARCHAR(80) NOT NULL
+);
+
 
 /*
 DECLARE @Tale TABLE(Id INT, Cantidad INT);
@@ -101,4 +114,10 @@ PRINT  @CANT
 DELETE @Tale WHERE @Id = Id
 SET @Count = (SELECT COUNT(*) FROM @Tale);
 END
+
+
+
+
+
+	SELECT DATEADD(d,-1,GETDATE()) 'Ayer'
 */
